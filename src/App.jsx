@@ -1,8 +1,6 @@
-
 import React, { useState, useEffect, useMemo } from 'react';
 
 const QUESTOES_MARISTA = [
-  // PÁGINA 1
   { cat: "PARENTESCO", q: "Quais os nomes das noras de Noemi?", opts: ["Orfa e Rute", "Raquel e Lia", "Ana e Penina", "Sará e Agar"], ok: "Orfa e Rute", ref: "Rute 1:4", exp: "Mulheres moabitas que se casaram com os filhos de Noemi." },
   { cat: "CRUCIFICAÇÃO", q: "Qual descrição estava escrita na cruz de Jesus?", opts: ["Este é o Rei dos Judeus", "Jesus de Nazaré", "O Messias Prometido", "Rei de Israel"], ok: "Este é o Rei dos Judeus", ref: "Lucas 23:38", exp: "Escrito em grego, latim e hebraico por ordem de Pilatos." },
   { cat: "ATOS", q: "Quem ungiu os olhos de Paulo para que voltasse a enxergar?", opts: ["Ananias", "Pedro", "Barnabé", "Silas"], ok: "Ananias", ref: "Atos 9:17-18", exp: "Ananias foi o instrumento de Deus para a cura e batismo de Saulo." },
@@ -28,7 +26,7 @@ const QUESTOES_MARISTA = [
   { cat: "APOCALIPSE", q: "Qual a semelhança da 2ª Besta descrita em Apocalipse?", opts: ["Semelhante a um cordeiro", "Semelhante a um leão", "Semelhante a um dragão", "Semelhante a um homem"], ok: "Semelhante a um cordeiro", ref: "Apocalipse 13:11", exp: "Tinha aparência de mansidão, mas voz de destruição." }
 ];
 
-export default function Quiz() {
+export default function SanctuaryQuizElite() {
   const filaSorteada = useMemo(() => [...QUESTOES_MARISTA].sort(() => Math.random() - 0.5), []);
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
@@ -79,12 +77,12 @@ export default function Quiz() {
       <main style={ui.stage}>
         <div style={ui.wrapper}>
           <div style={ui.timeline}>
-            <div style={{...ui.progress, width: `${(timer / 25) * 100}%`, background: revealed ? '#cbd5e1' : '#1e3a8a'}} />
+            <div style={{...ui.progress, width: `${(timer / 25) * 100}%`, background: revealed ? '#333' : '#fff'}} />
           </div>
 
           <div style={ui.contentBody}>
             <span style={ui.category}>{q.cat}</span>
-            <h1 style={{...ui.question, fontSize: q.q.length > 75 ? '2.8rem' : '4rem'}}>
+            <h1 style={{...ui.question, fontSize: q.q.length > 75 ? '3rem' : '4.5rem'}}>
               {q.q}
             </h1>
 
@@ -92,9 +90,9 @@ export default function Quiz() {
               {q.opts.map((o, i) => (
                 <div key={i} style={{
                   ...ui.optionCard,
-                  borderColor: revealed ? (o === q.ok ? '#1e3a8a' : 'transparent') : '#f1f5f9',
-                  background: revealed && o === q.ok ? '#eff6ff' : '#fff',
-                  opacity: revealed && o !== q.ok ? 0.3 : 1
+                  background: revealed ? (o === q.ok ? '#1e3a8a' : '#111') : '#111',
+                  color: revealed && o !== q.ok ? '#444' : '#fff',
+                  border: revealed && o === q.ok ? '4px solid #3b82f6' : '2px solid #222'
                 }}>
                   <span style={ui.letter}>{String.fromCharCode(65 + i)}</span>
                   {o}
@@ -120,29 +118,29 @@ export default function Quiz() {
 }
 
 const ui = {
-  app: { height: '100vh', width: '100vw', background: '#ffffff', color: '#111827', fontFamily: "'Inter', sans-serif", display: 'flex', flexDirection: 'column', overflow: 'hidden' },
-  header: { padding: '30px 60px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #f3f4f6' },
-  brand: { fontSize: '12px', fontWeight: '900', letterSpacing: '4px', color: '#9ca3af' },
+  app: { height: '100vh', width: '100vw', background: '#000000', color: '#ffffff', fontFamily: "'Inter', sans-serif", display: 'flex', flexDirection: 'column', overflow: 'hidden' },
+  header: { padding: '20px 60px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #222' },
+  brand: { fontSize: '14px', fontWeight: '900', letterSpacing: '4px', color: '#444' },
   navGroup: { display: 'flex', alignItems: 'center', gap: '20px' },
-  counter: { fontSize: '11px', fontWeight: 'bold', color: '#9ca3af', border: '1px solid #e5e7eb', padding: '5px 12px', borderRadius: '20px' },
-  ghostBtn: { background: 'none', border: 'none', color: '#6b7280', fontSize: '10px', fontWeight: 'bold', letterSpacing: '2px', cursor: 'pointer' },
-  mainBtn: { background: '#111827', color: '#fff', border: 'none', padding: '10px 24px', borderRadius: '4px', fontSize: '10px', fontWeight: 'bold', letterSpacing: '1px', cursor: 'pointer' },
-  stage: { flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '0 8%' },
-  wrapper: { width: '100%', maxWidth: '1100px' },
-  timeline: { width: '40px', height: '2px', background: '#f3f4f6', margin: '0 auto 40px auto', borderRadius: '2px', overflow: 'hidden' },
+  counter: { fontSize: '14px', fontWeight: '900', color: '#fff', background: '#222', padding: '8px 16px', borderRadius: '4px' },
+  ghostBtn: { background: 'none', border: 'none', color: '#666', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer' },
+  mainBtn: { background: '#fff', color: '#000', border: 'none', padding: '12px 28px', borderRadius: '4px', fontSize: '12px', fontWeight: '900', cursor: 'pointer' },
+  stage: { flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '0 5%' },
+  wrapper: { width: '100%', maxWidth: '1200px' },
+  timeline: { width: '100%', height: '6px', background: '#111', marginBottom: '40px', borderRadius: '10px', overflow: 'hidden' },
   progress: { height: '100%', transition: 'width 1s linear' },
   contentBody: { textAlign: 'center' },
-  category: { fontSize: '11px', fontWeight: '700', color: '#3b82f6', letterSpacing: '6px', textTransform: 'uppercase', marginBottom: '24px', display: 'block' },
-  question: { fontWeight: '800', color: '#111827', lineHeight: '1.05', marginBottom: '60px', letterSpacing: '-0.04em' },
-  optionsGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
-  optionCard: { padding: '30px 40px', borderRadius: '8px', border: '1px solid', fontSize: '1.5rem', textAlign: 'left', display: 'flex', alignItems: 'center', transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)' },
-  letter: { color: '#3b82f6', fontWeight: '900', fontSize: '14px', marginRight: '30px', opacity: 0.4 },
-  revealZone: { marginTop: '60px', height: '160px' },
-  revealLink: { background: 'none', border: 'none', color: '#9ca3af', fontSize: '11px', letterSpacing: '2px', cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: '4px' },
-  ansBox: { animation: 'fadeIn 0.8s ease' },
-  referenceText: { fontSize: '5rem', fontWeight: '900', color: '#111827', letterSpacing: '-4px', margin: 0 },
-  explanationText: { fontSize: '1.2rem', color: '#6b7280', marginTop: '10px', maxWidth: '700px', margin: '10px auto' },
+  category: { fontSize: '14px', fontWeight: '900', color: '#3b82f6', letterSpacing: '6px', textTransform: 'uppercase', marginBottom: '20px', display: 'block' },
+  question: { fontWeight: '900', color: '#ffffff', lineHeight: '1.1', marginBottom: '50px', letterSpacing: '-0.02em' },
+  optionsGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '25px' },
+  optionCard: { padding: '35px 45px', borderRadius: '12px', fontSize: '2.2rem', fontWeight: '900', textAlign: 'left', display: 'flex', alignItems: 'center', transition: 'all 0.3s ease' },
+  letter: { color: '#3b82f6', fontWeight: '900', fontSize: '20px', marginRight: '30px' },
+  revealZone: { marginTop: '50px', height: '180px' },
+  revealLink: { background: 'none', border: '2px solid #333', color: '#666', padding: '10px 30px', borderRadius: '30px', fontSize: '14px', fontWeight: '900', cursor: 'pointer' },
+  ansBox: { animation: 'fadeIn 0.5s ease' },
+  referenceText: { fontSize: '6rem', fontWeight: '900', color: '#fff', margin: 0 },
+  explanationText: { fontSize: '1.5rem', color: '#888', marginTop: '10px', maxWidth: '800px', margin: '10px auto' },
   centerBox: { textAlign: 'center' },
-  hugeText: { fontSize: '10rem', fontWeight: '900', letterSpacing: '-8px', margin: 0 },
-  subText: { color: '#9ca3af', letterSpacing: '2px', textTransform: 'uppercase', fontSize: '12px' }
+  hugeText: { fontSize: '12rem', fontWeight: '900', margin: 0 },
+  subText: { color: '#444', letterSpacing: '4px', textTransform: 'uppercase', fontSize: '14px' }
 };
