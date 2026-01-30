@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
+
 const QUESTOES_MARISTA = [
+  // PÁGINA 1
   { cat: "PARENTESCO", q: "Quais os nomes das noras de Noemi?", opts: ["Orfa e Rute", "Raquel e Lia", "Ana e Penina", "Sará e Agar"], ok: "Orfa e Rute", ref: "Rute 1:4", exp: "Mulheres moabitas que se casaram com os filhos de Noemi." },
   { cat: "CRUCIFICAÇÃO", q: "Qual descrição estava escrita na cruz de Jesus?", opts: ["Este é o Rei dos Judeus", "Jesus de Nazaré", "O Messias Prometido", "Rei de Israel"], ok: "Este é o Rei dos Judeus", ref: "Lucas 23:38", exp: "Escrito em grego, latim e hebraico por ordem de Pilatos." },
   { cat: "ATOS", q: "Quem ungiu os olhos de Paulo para que voltasse a enxergar?", opts: ["Ananias", "Pedro", "Barnabé", "Silas"], ok: "Ananias", ref: "Atos 9:17-18", exp: "Ananias foi o instrumento de Deus para a cura e batismo de Saulo." },
@@ -27,6 +29,7 @@ const QUESTOES_MARISTA = [
 ];
 
 export default function SanctuaryQuizElite() {
+  const [iniciado, setIniciado] = useState(false);
   const filaSorteada = useMemo(() => [...QUESTOES_MARISTA].sort(() => Math.random() - 0.5), []);
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
@@ -34,10 +37,14 @@ export default function SanctuaryQuizElite() {
   const [isPaused, setIsPaused] = useState(false);
   const [fim, setFim] = useState(false);
 
-  const q = filaSorteada[index];
+  const ativarFullscreen = () => {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) elem.requestFullscreen();
+    setIniciado(true);
+  };
 
   useEffect(() => {
-    if (isPaused || revealed || fim) return;
+    if (!iniciado || revealed || fim || isPaused) return;
     const itv = setInterval(() => {
       setTimer(t => {
         if (t <= 1) { setRevealed(true); return 0; }
@@ -45,44 +52,58 @@ export default function SanctuaryQuizElite() {
       });
     }, 1000);
     return () => clearInterval(itv);
-  }, [isPaused, revealed, index, fim]);
+  }, [iniciado, revealed, index, fim, isPaused]);
 
   const nav = () => {
     if (index < filaSorteada.length - 1) {
-      setIndex(index + 1); setRevealed(false); setTimer(25);
+      setIndex(index + 1); setRevealed(false); setTimer(25); setIsPaused(false);
     } else { setFim(true); }
   };
+
+  if (!iniciado) {
+    return (
+      <div style={ui.app} onClick={ativarFullscreen}>
+        <div style={ui.backgroundOverlay} />
+        <div style={ui.centerBox}>
+          <div style={ui.brand}>QUIZ BÍBLICO</div>
+          <h1 style={{...ui.hugeText, fontSize: '8rem', marginBottom: '40px'}}>CLIQUE PARA<br/>INICIAR</h1>
+        </div>
+      </div>
+    );
+  }
 
   if (fim) return (
     <div style={ui.app}>
       <div style={ui.centerBox}>
-        <h1 style={ui.hugeText}>Fim</h1>
-        <p style={ui.subText}>O ciclo de questões foi concluído com sucesso.</p>
-        <button onClick={() => window.location.reload()} style={ui.mainBtn}>RECOMEÇAR</button>
+        <h1 style={ui.hugeText}>FIM</h1>
+        <button onClick={() => window.location.reload()} style={ui.mainBtn}>REINICIAR</button>
       </div>
     </div>
   );
 
+  const q = filaSorteada[index];
+
   return (
     <div style={ui.app}>
+      <div style={ui.backgroundOverlay} />
       <header style={ui.header}>
-        <div style={ui.brand}>QUIZ <span></span></div>
+        <div style={ui.brand}>BIBLE</div>
         <div style={ui.navGroup}>
-          <div style={ui.counter}>Q. {index + 1} / {filaSorteada.length}</div>
-          <button onClick={() => setIsPaused(!isPaused)} style={ui.ghostBtn}>{isPaused ? 'PLAY' : 'STOP'}</button>
+          <div style={ui.counter}>{index + 1} / {filaSorteada.length}</div>
+          <button onClick={() => setIsPaused(!isPaused)} style={ui.stopBtn}>{isPaused ? 'RESUME' : 'STOP'}</button>
           <button onClick={nav} style={ui.mainBtn}>PRÓXIMA</button>
         </div>
       </header>
 
       <main style={ui.stage}>
         <div style={ui.wrapper}>
-          <div style={ui.timeline}>
-            <div style={{...ui.progress, width: `${(timer / 25) * 100}%`, background: revealed ? '#333' : '#fff'}} />
+          <div style={ui.timerContainer}>
+             <div style={{...ui.progressBar, width: `${(timer / 25) * 100}%`, background: isPaused ? '#facc15' : '#FFF'}} />
           </div>
 
           <div style={ui.contentBody}>
-            <span style={ui.category}>{q.cat}</span>
-            <h1 style={{...ui.question, fontSize: q.q.length > 75 ? '3rem' : '4.5rem'}}>
+            {/* Pergunta: Diminui opacidade ao revelar para dar foco na resposta */}
+            <h1 style={{...ui.question, fontSize: q.q.length > 60 ? '3rem' : '4.5rem', opacity: revealed ? 0.3 : 1}}>
               {q.q}
             </h1>
 
@@ -90,12 +111,12 @@ export default function SanctuaryQuizElite() {
               {q.opts.map((o, i) => (
                 <div key={i} style={{
                   ...ui.optionCard,
-                  background: revealed ? (o === q.ok ? '#1e3a8a' : '#111') : '#111',
-                  color: revealed && o !== q.ok ? '#444' : '#fff',
-                  border: revealed && o === q.ok ? '4px solid #3b82f6' : '2px solid #222'
+                  background: revealed && o === q.ok ? '#FFFFFF' : 'transparent',
+                  color: revealed ? (o === q.ok ? '#000' : '#333') : '#FFF',
+                  borderColor: revealed && o === q.ok ? '#FFF' : '#222',
+                  transform: revealed && o === q.ok ? 'scale(1.02)' : 'scale(1)',
                 }}>
-                  <span style={ui.letter}>{String.fromCharCode(65 + i)}</span>
-                  {o}
+                  <span style={ui.letter}>{String.fromCharCode(65 + i)}</span>{o}
                 </div>
               ))}
             </div>
@@ -107,7 +128,7 @@ export default function SanctuaryQuizElite() {
                   <p style={ui.explanationText}>{q.exp}</p>
                 </div>
               ) : (
-                <button onClick={() => setRevealed(true)} style={ui.revealLink}>Revelar Gabarito</button>
+                <button onClick={() => setRevealed(true)} style={ui.revealBtn}>REVELAR RESPOSTA</button>
               )}
             </div>
           </div>
@@ -118,29 +139,29 @@ export default function SanctuaryQuizElite() {
 }
 
 const ui = {
-  app: { height: '100vh', width: '100vw', background: '#000000', color: '#ffffff', fontFamily: "'Inter', sans-serif", display: 'flex', flexDirection: 'column', overflow: 'hidden' },
-  header: { padding: '20px 60px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #222' },
-  brand: { fontSize: '14px', fontWeight: '900', letterSpacing: '4px', color: '#444' },
-  navGroup: { display: 'flex', alignItems: 'center', gap: '20px' },
-  counter: { fontSize: '14px', fontWeight: '900', color: '#fff', background: '#222', padding: '8px 16px', borderRadius: '4px' },
-  ghostBtn: { background: 'none', border: 'none', color: '#666', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer' },
-  mainBtn: { background: '#fff', color: '#000', border: 'none', padding: '12px 28px', borderRadius: '4px', fontSize: '12px', fontWeight: '900', cursor: 'pointer' },
-  stage: { flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '0 5%' },
+  app: { height: '100vh', width: '100vw', background: '#000', color: '#FFF', fontFamily: "'Inter', sans-serif", display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden' },
+  backgroundOverlay: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at center, #111 0%, #000 100%)', zIndex: -1 },
+  header: { padding: '40px 80px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
+  brand: { fontSize: '12px', fontWeight: '900', letterSpacing: '8px', opacity: 0.4 },
+  navGroup: { display: 'flex', alignItems: 'center', gap: '30px' },
+  counter: { fontSize: '20px', fontWeight: '900', opacity: 0.7 },
+  stopBtn: { background: 'none', border: '1px solid #333', color: '#666', padding: '10px 20px', borderRadius: '100px', fontSize: '12px', fontWeight: '900', cursor: 'pointer' },
+  mainBtn: { background: '#FFF', color: '#000', border: 'none', padding: '12px 35px', fontWeight: '900', fontSize: '14px', borderRadius: '100px', cursor: 'pointer' },
+  stage: { flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', paddingBottom: '5vh' },
   wrapper: { width: '100%', maxWidth: '1200px' },
-  timeline: { width: '100%', height: '6px', background: '#111', marginBottom: '40px', borderRadius: '10px', overflow: 'hidden' },
-  progress: { height: '100%', transition: 'width 1s linear' },
+  timerContainer: { width: '100%', height: '3px', background: '#111', marginBottom: '60px' },
+  progressBar: { height: '100%', transition: 'width 1s linear' },
   contentBody: { textAlign: 'center' },
-  category: { fontSize: '14px', fontWeight: '900', color: '#3b82f6', letterSpacing: '6px', textTransform: 'uppercase', marginBottom: '20px', display: 'block' },
-  question: { fontWeight: '900', color: '#ffffff', lineHeight: '1.1', marginBottom: '50px', letterSpacing: '-0.02em' },
-  optionsGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '25px' },
-  optionCard: { padding: '35px 45px', borderRadius: '12px', fontSize: '2.2rem', fontWeight: '900', textAlign: 'left', display: 'flex', alignItems: 'center', transition: 'all 0.3s ease' },
-  letter: { color: '#3b82f6', fontWeight: '900', fontSize: '20px', marginRight: '30px' },
-  revealZone: { marginTop: '50px', height: '180px' },
-  revealLink: { background: 'none', border: '2px solid #333', color: '#666', padding: '10px 30px', borderRadius: '30px', fontSize: '14px', fontWeight: '900', cursor: 'pointer' },
-  ansBox: { animation: 'fadeIn 0.5s ease' },
-  referenceText: { fontSize: '6rem', fontWeight: '900', color: '#fff', margin: 0 },
-  explanationText: { fontSize: '1.5rem', color: '#888', marginTop: '10px', maxWidth: '800px', margin: '10px auto' },
-  centerBox: { textAlign: 'center' },
-  hugeText: { fontSize: '12rem', fontWeight: '900', margin: 0 },
-  subText: { color: '#444', letterSpacing: '4px', textTransform: 'uppercase', fontSize: '14px' }
+  question: { fontWeight: '900', lineHeight: '1.1', marginBottom: '60px', letterSpacing: '-0.02em', transition: '0.5s' },
+  optionsGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
+  optionCard: { padding: '30px 40px', fontSize: '2.2rem', fontWeight: '900', border: '2px solid', borderRadius: '12px', textAlign: 'left', display: 'flex', alignItems: 'center', transition: '0.4s' },
+  letter: { opacity: 0.3, marginRight: '20px', fontSize: '18px' },
+  revealZone: { marginTop: '50px', height: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center' },
+  revealBtn: { background: 'none', border: '1px solid #333', color: '#444', padding: '15px 40px', borderRadius: '100px', fontSize: '12px', fontWeight: '900', cursor: 'pointer', letterSpacing: '3px' },
+  ansBox: { animation: 'fadeIn 0.6s ease' },
+  // TAMANHO AJUSTADO DO VERSÍCULO
+  referenceText: { fontSize: '3.5rem', fontWeight: '900', color: '#FFF', margin: '0 0 10px 0', letterSpacing: '-1px' },
+  explanationText: { fontSize: '1.4rem', color: '#888', maxWidth: '800px', margin: '0 auto', lineHeight: '1.4', fontWeight: '500' },
+  centerBox: { textAlign: 'center', margin: 'auto' },
+  hugeText: { fontSize: '12rem', fontWeight: '900', letterSpacing: '-10px' }
 };
