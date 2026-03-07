@@ -62,7 +62,7 @@ const PODERES_POOL = [
   { cat: "PODER", q: "BÔNUS: COLUNA DE FOGO", ref: "FIREWALL", exp: "Você está imune às próximas 2 SENTENÇAS do quiz!", icon: "🔥", cor: "#facc15" },
   { cat: "PODER", q: "BÔNUS: MANÁ DO CÉU", ref: "VIDA EXTRA", exp: "O quiz te deu +2 vidas agora!", icon: "🍞", cor: "#facc15" },
   { cat: "PODER", q: "BÔNUS: ARCA DA ALIANÇA", ref: "BACKUP", exp: "Guarde este poder: Se você errar a próxima pergunta, não perderá vida!", icon: "📦", cor: "#facc15" },
-  { cat: "PODER", q: "BÔNUS: O SELO DE DEUS", ref: "IMUNIDADE", exp: "Você está marcado e protegido! Pelas próximas 3 rodadas, você não pode ser alvo de NENHUMA sentença (Bode Expiatório, Falso Profeta, etc).", icon: "📜", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: O SELO DE DEUS", ref: "IMUNIDADE", exp: "Você está marcado e protegido! Pelas próximas 3 rodadas, você não pode ser alvo de NENHUMA sentença (Falso Profeta, etc).", icon: "📜", cor: "#facc15" },
   { cat: "PODER",q: "BÔNUS: MANÁ ESCONDIDO",ref: "RECUPERAÇÃO",exp: "Recupere suas forças! Se você tiver menos de 3 vidas, volte a ter 5 imediatamente. Se já tiver 5, doe 1 para um amigo que está quase saindo.", icon: "🍞", cor: "#facc15"}
 ];
 
