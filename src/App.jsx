@@ -42,10 +42,12 @@ const MALDICOES_POOL = [
   { cat: "MALEDICAO", q: "SENTENÇA: CAMINHO DE ESPINHOS", ref: "BLOQUEIO", exp: "Seu inventário travou! Você não pode usar nenhum BÔNUS até acertar uma pergunta!", icon: "🌵", cor: "#ef4444" },
   { cat: "MALEDICAO", q: "SENTENÇA: JUÍZO IMEDIATO", ref: "VIDA NEGATIVA", exp: "O quiz foi implacável: Você perde 3 vidas agora!", icon: "⚖️", cor: "#ef4444" },
   { cat: "MALEDICAO", q: "SENTENÇA: O SINÉDRIO", exp: "A roda vota: se não gostarem da sua explicação, você perde 2 vidas!", icon: "⚖️" },
+  { cat: "MALEDICAO", q: "SENTENÇA: O FALSO PROFETA", exp: "Dê uma explicação (verdadeira ou falsa). Se enganar a maioria da roda, você ganha 2 vidas. Se te descobrirem, você perde 2!", icon: "🗣️" },
   { cat: "MALEDICAO", q: "SENTENÇA: FOGO CONSUMIDOR", ref: "LIMPEZA", exp: "O quiz removeu todos os seus bônus acumulados (Escudos/Backups) agora!", icon: "🔥", cor: "#ef4444" },
   { cat: "MALEDICAO", q: "SENTENÇA: O VOTO DE SILÊNCIO", ref: "REGRA", exp: "Punição Real: Você não pode dizer uma palavra até sua próxima vez. Se falar, perde 2 vidas!", icon: "🙊", cor: "#ef4444" },
   { cat: "MALEDICAO", q: "SENTENÇA: MARCA DA BESTA", ref: "VULNERÁVEL", exp: "Sentença de isolamento: Você perde 1 vida agora e não pode pegar bônus de ninguém!", icon: "🚫", cor: "#ef4444" },
-  { cat: "MALEDICAO", q: "SENTENÇA: TRIBULAÇÃO", ref: "PEDÁGIO", exp: "Para continuar jogando, o quiz exige o sacrifício de 1 vida sua agora!", icon: "💰", cor: "#ef4444" }
+  { cat: "MALEDICAO", q: "SENTENÇA: TRIBULAÇÃO", ref: "PEDÁGIO", exp: "Para continuar jogando, o quiz exige o sacrifício de 1 vida sua agora!", icon: "💰", cor: "#ef4444" },
+  { cat: "MALEDICAO",q: "SENTENÇA: TRIBUNAL DA TERRA",ref: "JULGAMENTO",exp: "Você dá sua resposta. A roda não vota se está certo, mas 'Sim' se a sua explicação foi 'Digna'. Se a maioria votar 'Não', você perde 1 fita pelo 'mau testemunho'.",icon: "⚖️",cor: "#ef4444"}
 ];
 
 const PODERES_POOL = [
@@ -59,7 +61,9 @@ const PODERES_POOL = [
   { cat: "PODER", q: "BÔNUS: CHUVA DE BENÇÃOS", ref: "EQUIPE", exp: "Você e seus dois amigos do lado ganham +1 vida cada!", icon: "🌧️", cor: "#facc15" },
   { cat: "PODER", q: "BÔNUS: COLUNA DE FOGO", ref: "FIREWALL", exp: "Você está imune às próximas 2 SENTENÇAS do quiz!", icon: "🔥", cor: "#facc15" },
   { cat: "PODER", q: "BÔNUS: MANÁ DO CÉU", ref: "VIDA EXTRA", exp: "O quiz te deu +2 vidas agora!", icon: "🍞", cor: "#facc15" },
-  { cat: "PODER", q: "BÔNUS: ARCA DA ALIANÇA", ref: "BACKUP", exp: "Guarde este poder: Se você errar a próxima pergunta, não perderá vida!", icon: "📦", cor: "#facc15" }
+  { cat: "PODER", q: "BÔNUS: ARCA DA ALIANÇA", ref: "BACKUP", exp: "Guarde este poder: Se você errar a próxima pergunta, não perderá vida!", icon: "📦", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: O SELO DE DEUS", ref: "IMUNIDADE", exp: "Você está marcado e protegido! Pelas próximas 3 rodadas, você não pode ser alvo de NENHUMA sentença (Bode Expiatório, Falso Profeta, etc).", icon: "📜", cor: "#facc15" },
+  { cat: "PODER",q: "BÔNUS: MANÁ ESCONDIDO",ref: "RECUPERAÇÃO",exp: "Recupere suas forças! Se você tiver menos de 3 vidas, volte a ter 5 imediatamente. Se já tiver 5, doe 1 para um amigo que está quase saindo.", icon: "🍞", cor: "#facc15"}
 ];
 
 export default function BibleQuizApocalypse() {
