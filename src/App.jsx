@@ -41,7 +41,7 @@ const MALDICOES_POOL = [
   { cat: "MALEDICAO", q: "SENTENÇA: O EXÍLIO", ref: "MORTE SÚBITA", exp: "Pressão total: Se errar a próxima pergunta, você será eliminado na hora!", icon: "⛓️", cor: "#ef4444" },
   { cat: "MALEDICAO", q: "SENTENÇA: CAMINHO DE ESPINHOS", ref: "BLOQUEIO", exp: "Seu inventário travou! Você não pode usar nenhum BÔNUS até acertar uma pergunta!", icon: "🌵", cor: "#ef4444" },
   { cat: "MALEDICAO", q: "SENTENÇA: JUÍZO IMEDIATO", ref: "VIDA NEGATIVA", exp: "O quiz foi implacável: Você perde 3 vidas agora!", icon: "⚖️", cor: "#ef4444" },
-  { cat: "MALEDICAO", q: "SENTENÇA: FOGO CONSUMIDOR", ref: "LIMPEZA", exp: "O quiz removeu todos os seus bônus acumulados (Escudos/Backups) agora!", icon: "🔥", cor: "#ef4444" }
+  { cat: "MALEDICAO", q: "SENTENÇA: FOGO CONSUMIDOR", ref: "LIMPEZA", exp: "O quiz removeu todos os seus bônus acumulados (Escudos/Backups) agora!", icon: "🔥", cor: "#ef4444" },
   { cat: "MALEDICAO", q: "SENTENÇA: O VOTO DE SILÊNCIO", ref: "REGRA", exp: "Punição Real: Você não pode dizer uma palavra até sua próxima vez. Se falar, perde 2 vidas!", icon: "🙊", cor: "#ef4444" },
   { cat: "MALEDICAO", q: "SENTENÇA: MARCA DA BESTA", ref: "VULNERÁVEL", exp: "Sentença de isolamento: Você perde 1 vida agora e não pode pegar bônus de ninguém!", icon: "🚫", cor: "#ef4444" },
   { cat: "MALEDICAO", q: "SENTENÇA: TRIBULAÇÃO", ref: "PEDÁGIO", exp: "Para continuar jogando, o quiz exige o sacrifício de 1 vida sua agora!", icon: "💰", cor: "#ef4444" }
