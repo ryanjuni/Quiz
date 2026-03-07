@@ -35,29 +35,30 @@ const QUESTOES_BASE = [
 ];
 
 const MALDICOES_POOL = [
+  { cat: "MALEDICAO", q: "SENTENÇA: CÁLICE DA IRA", ref: "DANO DUPLO", exp: "Na sua PRÓXIMA pergunta, se errar, você perderá 2 vidas!", icon: "🍷", cor: "#ef4444" },
+  { cat: "MALEDICAO", q: "SENTENÇA: MARCA DA BESTA", ref: "SISTEMA HOSTIL", exp: "Se você errar a próxima pergunta, todos os oponentes ganham +1 vida!", icon: "🚫", cor: "#ef4444" },
   { cat: "MALEDICAO", q: "SENTENÇA: DECRETO DE MORTE", ref: "PENALIDADE", exp: "O quiz removeu 1 vida sua agora. Sem direito a defesa!", icon: "💀", cor: "#ef4444" },
-  { cat: "MALEDICAO", q: "SENTENÇA: JUÍZO IMEDIATO", ref: "VIDA NEGATIVA", exp: "O quiz foi implacável: Você perde 2 vidas agora!", icon: "⚖️", cor: "#ef4444" },
-  { cat: "MALEDICAO", q: "SENTENÇA: FOGO CONSUMIDOR", ref: "LIMPEZA", exp: "O quiz removeu todos os seus bônus acumulados agora!", icon: "🔥", cor: "#ef4444" },
-  { cat: "MALEDICAO", q: "SENTENÇA: O VOTO DE SILÊNCIO", ref: "REGRA", exp: "Punição Real: Você não pode dizer uma palavra até sua próxima vez!", icon: "🙊", cor: "#ef4444" },
-  { cat: "MALEDICAO", q: "SENTENÇA: MARCA DA BESTA", ref: "VULNERÁVEL", exp: "Sentença de isolamento: Você perde 1 vida e não pode pegar bônus de ninguém!", icon: "🚫", cor: "#ef4444" },
-  { cat: "MALEDICAO", q: "SENTENÇA: TRIBULAÇÃO", ref: "PEDÁGIO", exp: "O quiz exige o sacrifício imediato de 1 vida sua agora!", icon: "💰", cor: "#ef4444" },
-  { cat: "MALEDICAO", q: "SENTENÇA: CÁLICE DA IRA", ref: "DANO CRÍTICO", exp: "O sistema transbordou: Perda de 2 vidas neste momento!", icon: "🍷", cor: "#ef4444" },
-  { cat: "MALEDICAO", q: "SENTENÇA: O ÚLTIMO SELO", ref: "LIMITE", exp: "Vulnerabilidade: Suas vidas extras sumiram, restando apenas 1!", icon: "🔓", cor: "#ef4444" },
-  { cat: "MALEDICAO", q: "SENTENÇA: LÍNGUA CONFUSA", ref: "PRESSÃO", exp: "Sobrecarga: No seu próximo turno, seu tempo de resposta será cortado!", icon: "🌀", cor: "#ef4444" },
-  { cat: "MALEDICAO", q: "SENTENÇA: AREIA MOVEDIÇA", ref: "BLOQUEIO", exp: "Você perdeu 1 vida e seus escudos estão desativados!", icon: "🏜️", cor: "#ef4444" }
+  { cat: "MALEDICAO", q: "SENTENÇA: O EXÍLIO", ref: "MORTE SÚBITA", exp: "Pressão total: Se errar a próxima pergunta, você será eliminado na hora!", icon: "⛓️", cor: "#ef4444" },
+  { cat: "MALEDICAO", q: "SENTENÇA: CAMINHO DE ESPINHOS", ref: "BLOQUEIO", exp: "Seu inventário travou! Você não pode usar nenhum BÔNUS até acertar uma pergunta!", icon: "🌵", cor: "#ef4444" },
+  { cat: "MALEDICAO", q: "SENTENÇA: JUÍZO IMEDIATO", ref: "VIDA NEGATIVA", exp: "O quiz foi implacável: Você perde 3 vidas agora!", icon: "⚖️", cor: "#ef4444" },
+  { cat: "MALEDICAO", q: "SENTENÇA: FOGO CONSUMIDOR", ref: "LIMPEZA", exp: "O quiz removeu todos os seus bônus acumulados (Escudos/Backups) agora!", icon: "🔥", cor: "#ef4444" }
+  { cat: "MALEDICAO", q: "SENTENÇA: O VOTO DE SILÊNCIO", ref: "REGRA", exp: "Punição Real: Você não pode dizer uma palavra até sua próxima vez. Se falar, perde 2 vidas!", icon: "🙊", cor: "#ef4444" },
+  { cat: "MALEDICAO", q: "SENTENÇA: MARCA DA BESTA", ref: "VULNERÁVEL", exp: "Sentença de isolamento: Você perde 1 vida agora e não pode pegar bônus de ninguém!", icon: "🚫", cor: "#ef4444" },
+  { cat: "MALEDICAO", q: "SENTENÇA: TRIBULAÇÃO", ref: "PEDÁGIO", exp: "Para continuar jogando, o quiz exige o sacrifício de 1 vida sua agora!", icon: "💰", cor: "#ef4444" }
 ];
 
 const PODERES_POOL = [
-  { cat: "PODER", q: "BÔNUS: MISERICÓRDIA", ref: "ESCOLHA", exp: "Decida: Ganhe 2 vidas para você OU dê 1 vida para todos os amigos!", icon: "✨", cor: "#facc15" },
-  { cat: "PODER", q: "BÔNUS: HERANÇA REAL", ref: "TROCA", exp: "Escolha: Troque sua vida com quem tem mais vidas ou ganhe +1 vida agora!", icon: "🎁", cor: "#facc15" },
-  { cat: "PODER", q: "BÔNUS: O INTERCESSOR", ref: "RESSURREIÇÃO", exp: "Escolha: Traga um eliminado de volta ou ganhe +2 vidas para você!", icon: "🙏", cor: "#facc15" },
-  { cat: "PODER", q: "BÔNUS: USURPADOR", ref: "SAQUE", exp: "Escolha alguém para tirar 1 vida e somar à sua, ou ganhe 1 vida do sistema!", icon: "🔱", cor: "#facc15" },
-  { cat: "PODER", q: "BÔNUS: ESCUDO DE FÉ", ref: "PROTEÇÃO", exp: "O quiz te protege: Na próxima vez que errar, você não perderá vida!", icon: "🛡️", cor: "#facc15" },
-  { cat: "PODER", q: "BÔNUS: ARREBATAMENTO", ref: "SALTO", exp: "Invisibilidade: O quiz vai pular você nos próximos 2 giros da garrafa!", icon: "☁️", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: USURPADOR", ref: "SAQUE", exp: "Escolha alguém que tenha bônus guardado e pegue para você! Agora você acumula os dois!", icon: "🔱", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: O JUÍZO FINAL", ref: "AUTORIDADE", exp: "Escolha alguém da roda para perder uma vida agora!", icon: "⚖️", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: ESCUDO DE ESPINHOS", ref: "REVERSO", exp: "Se a garrafa te apontar, você pode devolver a pergunta para quem girou!", icon: "🛡️", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: ARREBATAMENTO", ref: "SALVAÇÃO", exp: "Fique imune! O quiz deve ignorar você no próximo giro da garrafa!", icon: "☁️", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: HERANÇA", ref: "ROUBO", exp: "Escolha alguém para te dar uma vida agora (você ganha, ele perde)!", icon: "🎁", cor: "#facc15" },
   { cat: "PODER", q: "BÔNUS: DECRETO DO REI", ref: "RESTORE", exp: "O quiz restaurou todas as suas vidas perdidas agora!", icon: "📜", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: O INTERCESSOR", ref: "RESSURREIÇÃO", exp: "Traga alguém eliminado de volta com 2 vidas! Se não houver, ganhe +2 vidas.", icon: "🙏", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: CHUVA DE BENÇÃOS", ref: "EQUIPE", exp: "Você e seus dois amigos do lado ganham +1 vida cada!", icon: "🌧️", cor: "#facc15" },
   { cat: "PODER", q: "BÔNUS: COLUNA DE FOGO", ref: "FIREWALL", exp: "Você está imune às próximas 2 SENTENÇAS do quiz!", icon: "🔥", cor: "#facc15" },
   { cat: "PODER", q: "BÔNUS: MANÁ DO CÉU", ref: "VIDA EXTRA", exp: "O quiz te deu +2 vidas agora!", icon: "🍞", cor: "#facc15" },
-  { cat: "PODER", q: "BÔNUS: ARCA DA ALIANÇA", ref: "BACKUP", exp: "Se você chegar a 0 vidas, este poder te revive com 1 vida!", icon: "📦", cor: "#facc15" }
+  { cat: "PODER", q: "BÔNUS: ARCA DA ALIANÇA", ref: "BACKUP", exp: "Guarde este poder: Se você errar a próxima pergunta, não perderá vida!", icon: "📦", cor: "#facc15" }
 ];
 
 export default function BibleQuizApocalypse() {
