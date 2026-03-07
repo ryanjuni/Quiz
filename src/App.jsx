@@ -36,7 +36,7 @@ const QUESTOES_BASE = [
 
 const MALDICOES_POOL = [
   { cat: "MALEDICAO", q: "SENTENÇA: CÁLICE DA IRA", ref: "DANO DUPLO", exp: "Na sua PRÓXIMA pergunta, se errar, você perderá 2 vidas!", icon: "🍷", cor: "#ef4444" },
-  { cat: "MALEDICAO", q: "SENTENÇA: MARCA DA BESTA", ref: "SISTEMA HOSTIL", exp: "Se você errar a próxima pergunta, todos os oponentes ganham +1 vida!", icon: "🚫", cor: "#ef4444" },
+  { cat: "MALEDICAO", q: "SENTENÇA: MARCA DA BESTA", ref: "SISTEMA HOSTIL", exp: "Se você errar a próxima pergunta, todos os oponentes ganham +1 vida!. menos você", icon: "🚫", cor: "#ef4444" },
   { cat: "MALEDICAO", q: "SENTENÇA: DECRETO DE MORTE", ref: "PENALIDADE", exp: "O quiz removeu 1 vida sua agora. Sem direito a defesa!", icon: "💀", cor: "#ef4444" },
   { cat: "MALEDICAO", q: "SENTENÇA: O EXÍLIO", ref: "MORTE SÚBITA", exp: "Pressão total: Se errar a próxima pergunta, você será eliminado na hora!", icon: "⛓️", cor: "#ef4444" },
   { cat: "MALEDICAO", q: "SENTENÇA: CAMINHO DE ESPINHOS", ref: "BLOQUEIO", exp: "Seu inventário travou! Você não pode usar nenhum BÔNUS até acertar uma pergunta!", icon: "🌵", cor: "#ef4444" },
