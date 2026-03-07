@@ -1,76 +1,112 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
+// --- BANCO DE DADOS INTEGRADO (30 QUESTÕES - APOCALIPSE 13) ---
+const QUESTOES_BASE = [
+  // --- ORIGINAIS DO SEU CÓDIGO (17) ---
+  { q: "De onde surge a primeira besta descrita por João no início do capítulo?", ok: "Do mar", ref: "Apocalipse 13:1", exp: "Na profecia, o mar representa multidões e nações em conflito." },
+  { q: "Quantas cabeças e quantos chifres tinha a besta que subiu do mar?", ok: "7 cabeças e 10 chifres", ref: "Apocalipse 13:1", exp: "Os chifres tinham diademas, indicando poder político e real." },
+  { q: "A primeira besta assemelhava-se a quais três animais?", ok: "Leopardo, Urso e Leão", ref: "Apocalipse 13:2", exp: "Uma união dos impérios descritos anteriormente em Daniel 7." },
+  { q: "O que aconteceu a uma das cabeças da besta que causou admiração?", ok: "Foi ferida de morte, mas sua ferida foi curada", ref: "Apocalipse 13:3", exp: "Essa cura milagrosa faz com que todo o mundo se maravilhe e a siga." },
+  { q: "Por quanto tempo (meses) foi dado à primeira besta autoridade para agir?", ok: "42 meses", ref: "Apocalipse 13:5", exp: "Equivale a três anos e meio de autoridade para combater os santos." },
+  { q: "Como é descrita a aparência da segunda besta que sobe da terra?", ok: "Dois chifres como de cordeiro, mas falava como dragão", ref: "Apocalipse 13:11", exp: "Sua aparência é mansa, mas sua mensagem é de destruição." },
+  { q: "Qual é a principal função da segunda besta em relação à primeira?", ok: "Fazer com que a terra adore a primeira besta", ref: "Apocalipse 13:12", exp: "Ela atua como um braço religioso/ideológico que promove o culto à primeira." },
+  { q: "Que sinal vindo do céu a segunda besta realiza para enganar?", ok: "Faz descer fogo do céu", ref: "Apocalipse 13:13", exp: "Ela realiza prodígios visíveis para validar seu poder espiritual enganador." },
+  { q: "O que a segunda besta exige que todos recebam para comprar ou vender?", ok: "A marca na mão direita ou na testa", ref: "Apocalipse 13:16", exp: "Um sistema de exclusão financeira para forçar a adoração." },
+  { q: "Qual é o número de homem atribuído à besta?", ok: "666", ref: "Apocalipse 13:18", exp: "O número representa a imperfeição humana elevada ao extremo." },
+  { q: "Como o Dragão e as duas Bestas tentam 'copiar' a Santíssima Trindade?", ok: "O Dragão (Pai), a Besta do Mar (Filho) e a Besta da Terra (Espírito)", ref: "Reflexão", exp: "É uma contrafação satânica que tenta imitar a estrutura divina." },
+  { q: "Qual o critério único que impede uma pessoa de adorar a Besta?", ok: "Ter o nome no Livro da Vida do Cordeiro", ref: "Apocalipse 13:8", exp: "A fidelidade a Cristo é a única proteção real contra o engano." },
+  { q: "Por que o Dragão entrega seu trono à Besta do Mar?", ok: "Para governar através de uma máscara de autoridade", ref: "Estratégia", exp: "O mal prefere agir por intermédio de instituições que pareçam legítimas." },
+  { q: "O que representa a marca ser na testa ou na mão direita?", ok: "Cópia do selo de Deus (Pensamento e Ação)", ref: "Deuteronômio 6:8", exp: "Testa (mente/crença) e mão (trabalho/obediência)." },
+  { q: "Por que a Besta escolhe o controle financeiro?", ok: "Para forçar a conformidade através de necessidades básicas", ref: "Análise", exp: "O controle econômico é uma pressão que atinge a todos." },
+  { q: "O que representa uma besta vir do mar e a outra da terra?", ok: "Mar: Povos agitados. Terra: Lugar pouco habitado", ref: "Geografia", exp: "Indica o contexto populacional de surgimento de cada poder." },
+  { q: "O que o número 6 repetido três vezes sugere?", ok: "A imperfeição total tentando se passar por divina", ref: "Numerologia", exp: "O 6 é o número do homem tentando chegar ao 7 (divino)." },
 
-const QUESTOES_MARISTA = [
-  // PÁGINA 1
-  { cat: "PARENTESCO", q: "Quais os nomes das noras de Noemi?", opts: ["Orfa e Rute", "Raquel e Lia", "Ana e Penina", "Sará e Agar"], ok: "Orfa e Rute", ref: "Rute 1:4", exp: "Mulheres moabitas que se casaram com os filhos de Noemi." },
-  { cat: "CRUCIFICAÇÃO", q: "Qual descrição estava escrita na cruz de Jesus?", opts: ["Este é o Rei dos Judeus", "Jesus de Nazaré", "O Messias Prometido", "Rei de Israel"], ok: "Este é o Rei dos Judeus", ref: "Lucas 23:38", exp: "Escrito em grego, latim e hebraico por ordem de Pilatos." },
-  { cat: "ATOS", q: "Quem ungiu os olhos de Paulo para que voltasse a enxergar?", opts: ["Ananias", "Pedro", "Barnabé", "Silas"], ok: "Ananias", ref: "Atos 9:17-18", exp: "Ananias foi o instrumento de Deus para a cura e batismo de Saulo." },
-  { cat: "NATIVIDADE", q: "Quais os presentes que Jesus ganhou dos magos ao visitá-lo?", opts: ["Ouro, Incenso e Mirra", "Ouro, Prata e Bronze", "Incenso, Seda e Mirra", "Joias e Especiarias"], ok: "Ouro, Incenso e Mirra", ref: "Mateus 2:11", exp: "Presentes que reconheciam Jesus como Rei, Deus e Homem." },
-  { cat: "MINISTÉRIO", q: "Quantos anos durou o ministério de Jesus na Terra?", opts: ["3 anos", "1 ano", "7 anos", "12 anos"], ok: "3 anos", ref: "Registros Bíblicos", exp: "Período compreendido entre seu batismo e sua ascensão." },
-  { cat: "PROFETAS", q: "Quem foi o sucessor do profeta Elias?", opts: ["Eliseu", "Isaías", "Jeremias", "Enoque"], ok: "Eliseu", ref: "2 Reis 2:15", exp: "Ele presenciou a subida de Elias em um redemoinho." },
-  { cat: "PARENTESCO", q: "Qual o nome da mãe do profeta Samuel?", opts: ["Ana", "Isabel", "Miriã", "Débora"], ok: "Ana", ref: "1 Samuel 1:20", exp: "Seu nome significa 'Graça' ou 'Favor'." },
-  { cat: "PROFETAS", q: "Por que Jonas foi parar no ventre do peixe?", opts: ["Desobedeceu a Deus", "Caiu do barco", "Queria pescar", "Foi um castigo de Nínive"], ok: "Desobedeceu a Deus", ref: "Jonas 1:17", exp: "Tentou fugir do chamado de Deus para pregar em Nínive." },
-  { cat: "DISCÍPULOS", q: "Quem foram os três discípulos mais próximos de Jesus?", opts: ["Pedro, Tiago e João", "Pedro, André e Filipe", "Mateus, Tomé e Judas", "João, Judas e Tiago"], ok: "Pedro, Tiago e João", ref: "Mateus 17:1", exp: "O círculo íntimo que presenciou a Transfiguração." },
-  { cat: "APOCALIPSE", q: "Quais eram os nomes das igrejas citadas no livro de Apocalipse?", opts: ["As 7 igrejas da Ásia", "As 12 igrejas de Israel", "Igrejas da Galileia", "Igrejas de Roma e Corinto"], ok: "As 7 igrejas da Ásia", ref: "Apocalipse 1:11", exp: "Mensagens enviadas para comunidades específicas na Ásia Menor." },
-  { cat: "DILÚVIO", q: "Quais os nomes dos filhos de Noé?", opts: ["Sem, Cam e Jafé", "Caim, Abel e Sete", "Isaac, Jacó e Esaú", "Rúben, Simeão e Levi"], ok: "Sem, Cam e Jafé", ref: "Gênesis 6:10", exp: "Eles repovoaram a terra após o dilúvio." },
-  { cat: "DILÚVIO", q: "Quantos dias durou a chuva do dilúvio?", opts: ["40 dias e 40 noites", "7 dias", "100 dias", "12 meses"], ok: "40 dias e 40 noites", ref: "Gênesis 7:12", exp: "O período em que as comportas do céu se abriram." },
-  { cat: "ISRAEL", q: "Quais os nomes dos espiões que trouxeram relatório bom de Canaã?", opts: ["Josué e Calebe", "Moisés e Arão", "Gideão e Sansão", "Davi e Jônatas"], ok: "Josué e Calebe", ref: "Números 14:6", exp: "Os únicos que acreditaram na vitória dada por Deus." },
-  { cat: "MILAGRES", q: "Quantas pessoas Jesus ressuscitou segundo os Evangelhos?", opts: ["3 pessoas", "1 pessoa", "7 pessoas", "12 pessoas"], ok: "3 pessoas", ref: "Evangelhos", exp: "Lázaro, a filha de Jairo e o filho da viúva de Naim." },
-  { cat: "FESTAS", q: "Quais os nomes das principais festas bíblicas?", opts: ["Páscoa, Pentecostes e Tabernáculos", "Natal, Páscoa e Epifania", "Purim e Hanukkah", "Festa das Luzes e Trombetas"], ok: "Páscoa, Pentecostes e Tabernáculos", ref: "Levítico 23", exp: "As celebrações solenes do calendário judaico." },
-  { cat: "PARENTESCO", q: "Quais os nomes dos filhos de José no Egito?", opts: ["Manassés e Efraim", "Rúben e Simeão", "Fares e Zerá", "Gerson e Eliezer"], ok: "Manassés e Efraim", ref: "Gênesis 41:51-52", exp: "Nascidos antes dos anos de fome no Egito." },
-  { cat: "REALEZA", q: "Qual o nome da rainha que perseguiu o profeta Elias?", opts: ["Jezabel", "Ester", "Atalia", "Vasti"], ok: "Jezabel", ref: "1 Reis 19:1-2", exp: "Esposa de Acabe, introduziu o culto a Baal em Israel." },
-  { cat: "APOCALIPSE", q: "Qual o número dos selados segundo o livro de Apocalipse?", opts: ["144.000", "12.000", "7.000", "Uma multidão incontável"], ok: "144.000", ref: "Apocalipse 7:4", exp: "Doze mil de cada tribo dos filhos de Israel." },
-  { cat: "PROFECIA", q: "Quanto tempo as duas testemunhas vão profetizar sobre a terra?", opts: ["1.260 dias", "7 anos", "40 dias", "3 anos"], ok: "1.260 dias", ref: "Apocalipse 11:3", exp: "Período em que estarão vestidas de saco." },
-  { cat: "PROFECIA", q: "Segundo a Bíblia, por quantos anos Satanás ficará preso?", opts: ["1.000 anos", "100 anos", "Para sempre", "7 anos"], ok: "1.000 anos", ref: "Apocalipse 20:2", exp: "O período do reinado milenar de Cristo." },
-  { cat: "PROFECIA", q: "Segundo o Apocalipse, onde ocorrerá a batalha final?", opts: ["Armagedom", "Vale de Josafá", "Jerusalém", "Monte Sinai"], ok: "Armagedom", ref: "Apocalipse 16:16", exp: "O monte Megido, local de decisão espiritual." },
-  { cat: "ÊXODO", q: "Qual o nome do monte onde Moisés viu a sarça ardente?", opts: ["Horebe", "Sinai", "Moriá", "Carmelo"], ok: "Horebe", ref: "Êxodo 3:1", exp: "Onde Deus se revelou como 'EU SOU O QUE SOU'." },
-  { cat: "APOCALIPSE", q: "Qual a semelhança da 2ª Besta descrita em Apocalipse?", opts: ["Semelhante a um cordeiro", "Semelhante a um leão", "Semelhante a um dragão", "Semelhante a um homem"], ok: "Semelhante a um cordeiro", ref: "Apocalipse 13:11", exp: "Tinha aparência de mansidão, mas voz de destruição." }
+  // --- NOVAS QUESTÕES (13) ---
+  { q: "O que estava escrito nas sete cabeças da besta que subiu do mar?", ok: "Nomes de blasfêmia", ref: "Apocalipse 13:1", exp: "Isso indica uma oposição insultuosa à santidade de Deus." },
+  { q: "A besta do mar era semelhante a um leopardo, mas como eram os seus pés?", ok: "Pés de urso", ref: "Apocalipse 13:2", exp: "Os pés de urso simbolizam força esmagadora e base de sustentação." },
+  { q: "Além do poder e do trono, o que mais o Dragão deu à primeira besta?", ok: "Grande autoridade", ref: "Apocalipse 13:2", exp: "A besta é uma agente direta de Satanás na terra." },
+  { q: "Quem a besta do mar blasfema, além de Deus e do Seu nome?", ok: "O Seu tabernáculo e os que habitam no céu", ref: "Apocalipse 13:6", exp: "Ataca toda a realidade do santuário celestial." },
+  { q: "Segundo o verso 7, sobre quem a besta recebeu domínio?", ok: "Toda tribo, povo, língua e nação", ref: "Apocalipse 13:7", exp: "Isso mostra o caráter global do domínio político da besta." },
+  { q: "Complete a frase do verso 10: 'Aqui está a paciência e a...'?", ok: "Fé dos santos", ref: "Apocalipse 13:10", exp: "A resistência baseia-se em confiar na justiça final de Deus." },
+  { q: "A segunda besta exercia toda a autoridade de quem?", ok: "Da primeira besta", ref: "Apocalipse 13:12", exp: "Ela valida e impõe o sistema da primeira besta." },
+  { q: "A segunda besta engana os habitantes da terra por meio de quê?", ok: "Dos sinais que lhe foi permitido realizar", ref: "Apocalipse 13:14", exp: "O engano é baseado em milagres visíveis e falsos prodígios." },
+  { q: "O que a segunda besta deu à imagem da primeira para que ela pudesse falar?", ok: "Fôlego (espírito)", ref: "Apocalipse 13:15", exp: "Representa a capacidade de dar 'voz' legal a um sistema inanimado." },
+  { q: "Qual o destino daqueles que se recusam a adorar a imagem da besta?", ok: "Seriam mortos", ref: "Apocalipse 13:15", exp: "O sistema evolui de exclusão econômica para perseguição mortal." },
+  { q: "Além da marca, quais outras duas formas de identificação para comprar ou vender?", ok: "O nome ou o número do seu nome", ref: "Apocalipse 13:17", exp: "Diferentes níveis de adesão ao sistema mundial." },
+  { q: "O número da besta deve ser calculado por quem tem o quê?", ok: "Sabedoria e Inteligência", ref: "Apocalipse 13:18", exp: "Exige discernimento espiritual dado por Deus." },
+  { q: "Por que a segunda besta é chamada de 'Falso Profeta'?", ok: "Porque usa sinais religiosos para promover um falso deus", ref: "Teologia", exp: "Ela é o poder religioso que aponta para o poder político." }
 ];
 
-export default function SanctuaryQuizElite() {
+const MALDICOES_POOL = [
+  { cat: "MALEDICAO", q: "SENTENÇA: CÁLICE DA IRA", ref: "DANO DUPLO", exp: "Na sua PRÓXIMA pergunta, se errar, você perderá 2 vidas!", icon: "🍷", cor: "#ef4444" },
+  { cat: "MALEDICAO", q: "SENTENÇA: MARCA DA BESTA", ref: "SISTEMA HOSTIL", exp: "Se você errar a próxima pergunta, todos os oponentes ganham +1 vida!", icon: "🚫", cor: "#ef4444" },
+  { cat: "MALEDICAO", q: "SENTENÇA: DECRETO DE MORTE", ref: "PENALIDADE", exp: "O quiz removeu 1 vida sua agora. Sem direito a defesa!", icon: "💀", cor: "#ef4444" },
+  { cat: "MALEDICAO", q: "SENTENÇA: O EXÍLIO", ref: "MORTE SÚBITA", exp: "Pressão total: Se errar a próxima pergunta, você será eliminado na hora!", icon: "⛓️", cor: "#ef4444" },
+  { cat: "MALEDICAO", q: "SENTENÇA: CAMINHO DE ESPINHOS", ref: "BLOQUEIO", exp: "Seu inventário travou! Você não pode usar nenhum BÔNUS até acertar uma pergunta!", icon: "🌵", cor: "#ef4444" },
+  { cat: "MALEDICAO", q: "SENTENÇA: JUÍZO IMEDIATO", ref: "VIDA NEGATIVA", exp: "O quiz foi implacável: Você perde 3 vidas agora!", icon: "⚖️", cor: "#ef4444" },
+  { cat: "MALEDICAO", q: "SENTENÇA: FOGO CONSUMIDOR", ref: "LIMPEZA", exp: "O quiz removeu todos os seus bônus acumulados (Escudos/Backups) agora!", icon: "🔥", cor: "#ef4444" }
+  { cat: "MALEDICAO", q: "SENTENÇA: O VOTO DE SILÊNCIO", ref: "REGRA", exp: "Punição Real: Você não pode dizer uma palavra até sua próxima vez. Se falar, perde 2 vidas!", icon: "🙊", cor: "#ef4444" },
+  { cat: "MALEDICAO", q: "SENTENÇA: MARCA DA BESTA", ref: "VULNERÁVEL", exp: "Sentença de isolamento: Você perde 1 vida agora e não pode pegar bônus de ninguém!", icon: "🚫", cor: "#ef4444" },
+  { cat: "MALEDICAO", q: "SENTENÇA: TRIBULAÇÃO", ref: "PEDÁGIO", exp: "Para continuar jogando, o quiz exige o sacrifício de 1 vida sua agora!", icon: "💰", cor: "#ef4444" }
+];
+
+const PODERES_POOL = [
+  { cat: "PODER", q: "BÔNUS: USURPADOR", ref: "SAQUE", exp: "Escolha alguém que tenha bônus guardado e pegue para você! Agora você acumula os dois!", icon: "🔱", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: O JUÍZO FINAL", ref: "AUTORIDADE", exp: "Escolha alguém da roda para perder uma vida agora!", icon: "⚖️", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: ESCUDO DE ESPINHOS", ref: "REVERSO", exp: "Se a garrafa te apontar, você pode devolver a pergunta para quem girou!", icon: "🛡️", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: ARREBATAMENTO", ref: "SALVAÇÃO", exp: "Fique imune! O quiz deve ignorar você no próximo giro da garrafa!", icon: "☁️", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: HERANÇA", ref: "ROUBO", exp: "Escolha alguém para te dar uma vida agora (você ganha, ele perde)!", icon: "🎁", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: DECRETO DO REI", ref: "RESTORE", exp: "O quiz restaurou todas as suas vidas perdidas agora!", icon: "📜", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: O INTERCESSOR", ref: "RESSURREIÇÃO", exp: "Traga alguém eliminado de volta com 2 vidas! Se não houver, ganhe +2 vidas.", icon: "🙏", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: CHUVA DE BENÇÃOS", ref: "EQUIPE", exp: "Você e seus dois amigos do lado ganham +1 vida cada!", icon: "🌧️", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: COLUNA DE FOGO", ref: "FIREWALL", exp: "Você está imune às próximas 2 SENTENÇAS do quiz!", icon: "🔥", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: MANÁ DO CÉU", ref: "VIDA EXTRA", exp: "O quiz te deu +2 vidas agora!", icon: "🍞", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: ARCA DA ALIANÇA", ref: "BACKUP", exp: "Guarde este poder: Se você errar a próxima pergunta, não perderá vida!", icon: "📦", cor: "#facc15" }
+];
+export default function BibleQuizApocalypse() {
   const [iniciado, setIniciado] = useState(false);
-  const filaSorteada = useMemo(() => [...QUESTOES_MARISTA].sort(() => Math.random() - 0.5), []);
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
-  const [timer, setTimer] = useState(25);
-  const [isPaused, setIsPaused] = useState(false);
   const [fim, setFim] = useState(false);
 
-  const ativarFullscreen = () => {
-    const elem = document.documentElement;
-    if (elem.requestFullscreen) elem.requestFullscreen();
+  const filaSorteada = useMemo(() => {
+    let perguntas = [...QUESTOES_BASE].sort(() => Math.random() - 0.5);
+    let final = [];
+    perguntas.forEach((p, i) => {
+      final.push(p);
+      const sorteio = Math.random();
+      if (i < perguntas.length - 1) {
+        // Chance de 15% para Poder e 15% para Maldição (Total 30% de eventos)
+        if (sorteio < 0.15) final.push(PODERES_POOL[Math.floor(Math.random() * PODERES_POOL.length)]);
+        else if (sorteio < 0.30) final.push(MALDICOES_POOL[Math.floor(Math.random() * MALDICOES_POOL.length)]);
+      }
+    });
+    return final;
+  }, []);
+
+  const entrarFullscreen = () => {
+    const el = document.documentElement;
+    const rfs = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+    if (rfs) rfs.call(el).catch(() => {});
     setIniciado(true);
   };
 
-  useEffect(() => {
-    if (!iniciado || revealed || fim || isPaused) return;
-    const itv = setInterval(() => {
-      setTimer(t => {
-        if (t <= 1) { setRevealed(true); return 0; }
-        return t - 1;
-      });
-    }, 1000);
-    return () => clearInterval(itv);
-  }, [iniciado, revealed, index, fim, isPaused]);
-
-  const nav = () => {
+  const proxima = () => {
     if (index < filaSorteada.length - 1) {
-      setIndex(index + 1); setRevealed(false); setTimer(25); setIsPaused(false);
+      setIndex(index + 1); setRevealed(false);
     } else { setFim(true); }
   };
 
-  if (!iniciado) {
-    return (
-      <div style={ui.app} onClick={ativarFullscreen}>
-        <div style={ui.backgroundOverlay} />
-        <div style={ui.centerBox}>
-          <div style={ui.brand}>QUIZ BÍBLICO</div>
-          <h1 style={{...ui.hugeText, fontSize: '8rem', marginBottom: '40px'}}>CLIQUE PARA<br/>INICIAR</h1>
-        </div>
+  if (!iniciado) return (
+    <div style={ui.app} onClick={entrarFullscreen}>
+      <div style={ui.backgroundOverlay} />
+      <div style={ui.centerBox}>
+        <div style={ui.brand}>QUIZ ELITE - APOCALIPSE 13</div>
+        <h1 style={ui.hugeText}>INICIAR</h1>
+        <p style={{color: '#facc15', letterSpacing: '3px', animation: 'blink 1.5s infinite'}}>CLIQUE PARA TELA CHEIA TOTAL</p>
       </div>
-    );
-  }
+    </div>
+  );
 
   if (fim) return (
     <div style={ui.app}>
@@ -81,56 +117,57 @@ export default function SanctuaryQuizElite() {
     </div>
   );
 
-  const q = filaSorteada[index];
+  const item = filaSorteada[index];
+  const isPoder = item.cat === "PODER";
+  const isMalda = item.cat === "MALEDICAO";
+  const anim = isMalda ? 'shake 0.5s infinite' : isPoder ? 'auraGlow 3s infinite ease-in-out' : 'none';
 
   return (
-    <div style={ui.app}>
-      <div style={ui.backgroundOverlay} />
+    <div style={{...ui.app, animation: anim}}>
+      <div style={{
+        ...ui.backgroundOverlay, 
+        background: isMalda ? 'radial-gradient(circle, #400 0%, #000 100%)' : isPoder ? 'radial-gradient(circle, #320 0%, #000 100%)' : 'radial-gradient(circle, #151515 0%, #000 100%)'
+      }} />
+      
       <header style={ui.header}>
-        <div style={ui.brand}>BIBLE</div>
+        <div style={{...ui.brand, color: item.cor || '#FFF'}}>{isPoder ? "✨ BÔNUS" : isMalda ? "⚠️ AVISO" : "PERGUNTA"}</div>
         <div style={ui.navGroup}>
           <div style={ui.counter}>{index + 1} / {filaSorteada.length}</div>
-          <button onClick={() => setIsPaused(!isPaused)} style={ui.stopBtn}>{isPaused ? 'RESUME' : 'STOP'}</button>
-          <button onClick={nav} style={ui.mainBtn}>PRÓXIMA</button>
+          <button onClick={proxima} style={{...ui.mainBtn, background: item.cor || '#FFF'}}>{isPoder || isMalda ? 'CONTINUAR' : 'PRÓXIMA'}</button>
         </div>
       </header>
 
       <main style={ui.stage}>
         <div style={ui.wrapper}>
-          <div style={ui.timerContainer}>
-             <div style={{...ui.progressBar, width: `${(timer / 25) * 100}%`, background: isPaused ? '#facc15' : '#FFF'}} />
-          </div>
-
           <div style={ui.contentBody}>
-            {/* Pergunta: Diminui opacidade ao revelar para dar foco na resposta */}
-            <h1 style={{...ui.question, fontSize: q.q.length > 60 ? '3rem' : '4.5rem', opacity: revealed ? 0.3 : 1}}>
-              {q.q}
+            <h1 style={{
+                ...ui.question, 
+                fontSize: (isPoder || isMalda) ? '5.5rem' : (item.q.length > 80 ? '3rem' : '4rem'), 
+                color: item.cor || '#FFF',
+                animation: isPoder ? 'float 3s infinite ease-in-out' : 'none'
+            }}>
+              {item.q}
             </h1>
 
-            <div style={ui.optionsGrid}>
-              {q.opts.map((o, i) => (
-                <div key={i} style={{
-                  ...ui.optionCard,
-                  background: revealed && o === q.ok ? '#FFFFFF' : 'transparent',
-                  color: revealed ? (o === q.ok ? '#000' : '#333') : '#FFF',
-                  borderColor: revealed && o === q.ok ? '#FFF' : '#222',
-                  transform: revealed && o === q.ok ? 'scale(1.02)' : 'scale(1)',
-                }}>
-                  <span style={ui.letter}>{String.fromCharCode(65 + i)}</span>{o}
-                </div>
-              ))}
-            </div>
-
-            <div style={ui.revealZone}>
-              {revealed ? (
-                <div style={ui.ansBox}>
-                  <h2 style={ui.referenceText}>{q.ref}</h2>
-                  <p style={ui.explanationText}>{q.exp}</p>
-                </div>
-              ) : (
-                <button onClick={() => setRevealed(true)} style={ui.revealBtn}>REVELAR RESPOSTA</button>
-              )}
-            </div>
+            {(isPoder || isMalda) ? (
+              <div style={{...ui.powerCard, borderColor: item.cor, background: `${item.cor}08`}}>
+                <div style={{fontSize: '8rem', marginBottom: '20px'}}>{item.icon}</div>
+                <h2 style={{fontSize: '3rem', color: '#FFF'}}>{item.ref}</h2>
+                <p style={{fontSize: '1.8rem', color: item.cor}}>{item.exp}</p>
+              </div>
+            ) : (
+              <div style={ui.revealZone}>
+                {revealed ? (
+                  <div style={ui.ansBox}>
+                    <div style={ui.correctBadge}>REVELAÇÃO:</div>
+                    <h2 style={ui.answerText}>{item.ok}</h2>
+                    <p style={ui.explanationText}><strong>{item.ref}:</strong> {item.exp}</p>
+                  </div>
+                ) : (
+                  <button onClick={() => setRevealed(true)} style={ui.revealBtnLarge}>REVELAR RESPOSTA</button>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </main>
@@ -139,29 +176,37 @@ export default function SanctuaryQuizElite() {
 }
 
 const ui = {
-  app: { height: '100vh', width: '100vw', background: '#000', color: '#FFF', fontFamily: "'Inter', sans-serif", display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden' },
-  backgroundOverlay: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at center, #111 0%, #000 100%)', zIndex: -1 },
-  header: { padding: '40px 80px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
-  brand: { fontSize: '12px', fontWeight: '900', letterSpacing: '8px', opacity: 0.4 },
-  navGroup: { display: 'flex', alignItems: 'center', gap: '30px' },
-  counter: { fontSize: '20px', fontWeight: '900', opacity: 0.7 },
-  stopBtn: { background: 'none', border: '1px solid #333', color: '#666', padding: '10px 20px', borderRadius: '100px', fontSize: '12px', fontWeight: '900', cursor: 'pointer' },
-  mainBtn: { background: '#FFF', color: '#000', border: 'none', padding: '12px 35px', fontWeight: '900', fontSize: '14px', borderRadius: '100px', cursor: 'pointer' },
-  stage: { flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', paddingBottom: '5vh' },
+  app: { position: 'fixed', top: 0, left: 0, height: '100vh', width: '100vw', background: '#000', color: '#FFF', fontFamily: "system-ui, sans-serif", display: 'flex', flexDirection: 'column', overflow: 'hidden', zIndex: 9999 },
+  backgroundOverlay: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1, transition: '0.8s' },
+  header: { padding: '40px 60px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
+  brand: { fontSize: '14px', fontWeight: '900', letterSpacing: '6px' },
+  navGroup: { display: 'flex', alignItems: 'center', gap: '20px' },
+  counter: { fontSize: '18px', fontWeight: '700', opacity: 0.5 },
+  mainBtn: { border: 'none', padding: '15px 40px', borderRadius: '100px', cursor: 'pointer', fontWeight: '900', transition: '0.3s' },
+  stage: { flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '0 80px' },
   wrapper: { width: '100%', maxWidth: '1200px' },
-  timerContainer: { width: '100%', height: '3px', background: '#111', marginBottom: '60px' },
-  progressBar: { height: '100%', transition: 'width 1s linear' },
   contentBody: { textAlign: 'center' },
-  question: { fontWeight: '900', lineHeight: '1.1', marginBottom: '60px', letterSpacing: '-0.02em', transition: '0.5s' },
-  optionsGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
-  optionCard: { padding: '30px 40px', fontSize: '2.2rem', fontWeight: '900', border: '2px solid', borderRadius: '12px', textAlign: 'left', display: 'flex', alignItems: 'center', transition: '0.4s' },
-  letter: { opacity: 0.3, marginRight: '20px', fontSize: '18px' },
-  revealZone: { marginTop: '50px', height: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center' },
-  revealBtn: { background: 'none', border: '1px solid #333', color: '#444', padding: '15px 40px', borderRadius: '100px', fontSize: '12px', fontWeight: '900', cursor: 'pointer', letterSpacing: '3px' },
-  ansBox: { animation: 'fadeIn 0.6s ease' },
-  // TAMANHO AJUSTADO DO VERSÍCULO
-  referenceText: { fontSize: '3.5rem', fontWeight: '900', color: '#FFF', margin: '0 0 10px 0', letterSpacing: '-1px' },
-  explanationText: { fontSize: '1.4rem', color: '#888', maxWidth: '800px', margin: '0 auto', lineHeight: '1.4', fontWeight: '500' },
+  question: { fontWeight: '900', lineHeight: '1.2', marginBottom: '40px' },
+  revealZone: { minHeight: '350px', display: 'flex', justifyContent: 'center', alignItems: 'center' },
+  revealBtnLarge: { background: 'none', border: '2px solid #333', color: '#666', padding: '40px 80px', borderRadius: '30px', fontSize: '1.8rem', fontWeight: '900', cursor: 'pointer' },
+  ansBox: { animation: 'fadeIn 0.6s ease', background: 'rgba(255,255,255,0.05)', padding: '50px', borderRadius: '40px' },
+  correctBadge: { color: '#facc15', fontSize: '1.2rem', fontWeight: '900', marginBottom: '10px' },
+  answerText: { fontSize: '4rem', fontWeight: '900', margin: '0 0 20px 0' },
+  explanationText: { fontSize: '1.5rem', color: '#aaa', lineHeight: '1.4' },
   centerBox: { textAlign: 'center', margin: 'auto' },
-  hugeText: { fontSize: '12rem', fontWeight: '900', letterSpacing: '-10px' }
+  hugeText: { fontSize: '12rem', fontWeight: '900', margin: '0' },
+  powerCard: { padding: '60px', border: '5px solid', borderRadius: '50px' }
 };
+
+if (typeof document !== 'undefined') {
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    @keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 10% { transform: translate(-1px, -2px) rotate(-1deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 50% { transform: translate(-1px, 2px) rotate(-1deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
+    @keyframes auraGlow { 0%, 100% { box-shadow: inset 0 0 50px rgba(250, 204, 21, 0.1); } 50% { box-shadow: inset 0 0 150px rgba(250, 204, 21, 0.2); } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+    body { margin: 0; background: black; overflow: hidden; }
+  `;
+  document.head.appendChild(style);
+}
