@@ -173,28 +173,32 @@ export default function BibleQuizApocalypse() {
 }
 
 const ui = {
-  app: { position: 'fixed', top: 0, left: 0, height: '100vh', width: '100vw', background: '#000', color: '#FFF', fontFamily: "system-ui, sans-serif", display: 'flex', flexDirection: 'column', overflow: 'hidden', zIndex: 9999 },
+  app: { 
+    position: 'fixed', top: 0, left: 0, height: '100vh', width: '100vw', 
+    background: '#000', color: '#FFF', fontFamily: "system-ui, sans-serif", 
+    display: 'flex', flexDirection: 'column', overflowY: 'auto', zIndex: 9999 
+  },
   backgroundOverlay: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1, transition: '0.8s' },
-  header: { padding: '40px 60px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
-  brand: { fontSize: '14px', fontWeight: '900', letterSpacing: '6px' },
-  navGroup: { display: 'flex', alignItems: 'center', gap: '20px' },
-  counter: { fontSize: '18px', fontWeight: '700', opacity: 0.5 },
-  mainBtn: { border: 'none', padding: '15px 40px', borderRadius: '100px', cursor: 'pointer', fontWeight: '900', transition: '0.3s' },
-  stage: { flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '0 80px' },
-  wrapper: { width: '100%', maxWidth: '1200px' },
-  contentBody: { textAlign: 'center' },
-  question: { fontWeight: '900', lineHeight: '1.2', marginBottom: '40px' },
-  revealZone: { minHeight: '350px', display: 'flex', justifyContent: 'center', alignItems: 'center' },
-  revealBtnLarge: { background: 'none', border: '2px solid #333', color: '#666', padding: '40px 80px', borderRadius: '30px', fontSize: '1.8rem', fontWeight: '900', cursor: 'pointer' },
-  ansBox: { animation: 'fadeIn 0.6s ease', background: 'rgba(255,255,255,0.05)', padding: '50px', borderRadius: '40px' },
-  correctBadge: { color: '#facc15', fontSize: '1.2rem', fontWeight: '900', marginBottom: '10px' },
-  answerText: { fontSize: '4rem', fontWeight: '900', margin: '0 0 20px 0' },
-  explanationText: { fontSize: '1.5rem', color: '#aaa', lineHeight: '1.4' },
-  centerBox: { textAlign: 'center', margin: 'auto' },
-  hugeText: { fontSize: '12rem', fontWeight: '900', margin: '0' },
-  powerCard: { padding: '60px', border: '5px solid', borderRadius: '50px' }
+  header: { padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' },
+  brand: { fontSize: 'clamp(10px, 2vw, 14px)', fontWeight: '900', letterSpacing: '2px' },
+  navGroup: { display: 'flex', alignItems: 'center', gap: '15px' },
+  counter: { fontSize: '14px', fontWeight: '700', opacity: 0.5 },
+  mainBtn: { border: 'none', padding: '10px 25px', borderRadius: '100px', cursor: 'pointer', fontWeight: '900', fontSize: '14px' },
+  stage: { flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' },
+  wrapper: { width: '100%', maxWidth: '900px', margin: '0 auto' },
+  contentBody: { textAlign: 'center', width: '100%' },
+  // O segredo está no clamp: ele define um tamanho mínimo, um ideal e um máximo
+  question: { fontWeight: '900', lineHeight: '1.1', marginBottom: '30px', fontSize: 'clamp(1.8rem, 5vw, 4rem)' },
+  revealZone: { minHeight: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center' },
+  revealBtnLarge: { background: 'none', border: '2px solid #333', color: '#666', padding: '20px 40px', borderRadius: '20px', fontSize: 'clamp(1rem, 3vw, 1.8rem)', fontWeight: '900', cursor: 'pointer' },
+  ansBox: { animation: 'fadeIn 0.6s ease', background: 'rgba(255,255,255,0.05)', padding: '30px', borderRadius: '30px', width: '100%' },
+  correctBadge: { color: '#facc15', fontSize: '1rem', fontWeight: '900', marginBottom: '10px' },
+  answerText: { fontSize: 'clamp(1.5rem, 4vw, 3rem)', fontWeight: '900', margin: '0 0 15px 0' },
+  explanationText: { fontSize: 'clamp(0.9rem, 2vw, 1.3rem)', color: '#aaa', lineHeight: '1.4' },
+  centerBox: { textAlign: 'center', padding: '20px' },
+  hugeText: { fontSize: 'clamp(4rem, 15vw, 10rem)', fontWeight: '900', margin: '0' },
+  powerCard: { padding: '30px', border: '4px solid', borderRadius: '30px', width: '100%', maxWidth: '500px', margin: '0 auto' }
 };
-
 if (typeof document !== 'undefined') {
   const style = document.createElement('style');
   style.innerHTML = `
