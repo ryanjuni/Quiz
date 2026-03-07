@@ -50,7 +50,7 @@ const MALDICOES_POOL = [
 const PODERES_POOL = [
   { cat: "PODER", q: "BÔNUS: USURPADOR", ref: "SAQUE", exp: "Escolha alguém que tenha bônus guardado e pegue para você! Agora você acumula os dois!", icon: "🔱", cor: "#facc15" },
   { cat: "PODER", q: "BÔNUS: O JUÍZO FINAL", ref: "AUTORIDADE", exp: "Escolha alguém da roda para perder uma vida agora!", icon: "⚖️", cor: "#facc15" },
-  { cat: "PODER", q: "BÔNUS: ESCUDO DE ESPINHOS", ref: "REVERSO", exp: "Se a garrafa te apontar, você pode devolver a pergunta para quem girou!", icon: "🛡️", cor: "#facc15" },
+  { cat: "PODER", q: "BÔNUS: ESCUDO DE ESPINHOS", ref: "REVERSO", exp: "Se a garrafa te apontar, você pode escolher uma pessoa para responder no seu lugar!", icon: "🛡️", cor: "#facc15" },
   { cat: "PODER", q: "BÔNUS: ARREBATAMENTO", ref: "SALVAÇÃO", exp: "Fique imune! O quiz deve ignorar você no próximo giro da garrafa!", icon: "☁️", cor: "#facc15" },
   { cat: "PODER", q: "BÔNUS: HERANÇA", ref: "ROUBO", exp: "Escolha alguém para te dar uma vida agora (você ganha, ele perde)!", icon: "🎁", cor: "#facc15" },
   { cat: "PODER", q: "BÔNUS: DECRETO DO REI", ref: "RESTORE", exp: "O quiz restaurou todas as suas vidas perdidas agora!", icon: "📜", cor: "#facc15" },
